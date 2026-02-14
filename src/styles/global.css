@@ -1,22 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-	--color-background: hsl(42 33% 97%);
-	--color-foreground: hsl(20 10% 20%);
-	--color-paper: hsl(40 25% 92%);
-	--color-secondary: hsl(40 30% 96%);
-	--color-muted: hsl(30 10% 65%);
-	--color-accent: hsl(20 60% 45%);
-	--color-border: hsl(30 15% 85%);
-	--color-card: hsl(40 40% 99%);
+	--color-background: hsl(var(--background));
+	--color-foreground: hsl(var(--foreground));
+	--color-paper: hsl(var(--paper));
+	--color-secondary: hsl(var(--secondary));
+	--color-muted: hsl(var(--muted));
+	--color-accent: hsl(var(--accent));
+	--color-border: hsl(var(--border));
+	--color-card: hsl(var(--card));
 
 	--font-display: var(--font-display), serif;
 	--font-body: var(--font-body), sans-serif;
 
 	--radius-elegant: 0.375rem;
-
-	--shadow-elegant: 0 1px 3px hsl(20 10% 20% / 0.04);
-	--shadow-elegant-lg: 0 8px 30px hsl(20 10% 20% / 0.06);
 }
 
 :root {
