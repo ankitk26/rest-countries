@@ -25,7 +25,9 @@ export default async function HomePage() {
 		const data = await response.json();
 
 		if (Array.isArray(data)) {
-			countries = data;
+			countries = data.sort((a, b) =>
+				a.name.common.localeCompare(b.name.common),
+			);
 		} else {
 			console.error("API returned non-array data:", data);
 		}

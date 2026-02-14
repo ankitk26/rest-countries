@@ -73,7 +73,9 @@ export default async function CountryPage({ params }: Props) {
 
 			if (response.ok) {
 				const data = await response.json();
-				borderCountries = Array.isArray(data) ? data : [];
+				borderCountries = (Array.isArray(data) ? data : []).sort(
+					(a, b) => a.name.common.localeCompare(b.name.common),
+				);
 			}
 		} catch (error) {
 			console.error("Failed to fetch border countries:", error);
@@ -141,13 +143,11 @@ export default async function CountryPage({ params }: Props) {
 									</dd>
 								</div>
 							)}
-							{country.capital && (
+							{country.capital && country.capital.length > 0 && (
 								<div>
 									<dt className="text-label mb-1">Capital</dt>
 									<dd className="text-foreground/80 font-light">
-										{Array.isArray(country.capital)
-											? country.capital.join(", ")
-											: country.capital}
+										{country.capital.join(", ")}
 									</dd>
 								</div>
 							)}

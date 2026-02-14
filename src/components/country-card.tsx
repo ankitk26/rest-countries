@@ -32,7 +32,7 @@ export default function CountryCard({ country, index = 0 }: Props) {
 					</h2>
 
 					<dl className="space-y-2 text-sm">
-						{country.population && (
+						{country.population > 0 && (
 							<div className="flex gap-2">
 								<dt className="text-label w-24">Population</dt>
 								<dd className="text-muted font-light">
@@ -48,13 +48,11 @@ export default function CountryCard({ country, index = 0 }: Props) {
 								</dd>
 							</div>
 						)}
-						{country.capital && (
+						{country.capital && country.capital.length > 0 && (
 							<div className="flex gap-2">
 								<dt className="text-label w-24">Capital</dt>
 								<dd className="text-muted font-light">
-									{Array.isArray(country.capital)
-										? country.capital[0]
-										: country.capital}
+									{country.capital[0]}
 								</dd>
 							</div>
 						)}
