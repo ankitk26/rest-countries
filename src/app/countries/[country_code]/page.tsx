@@ -117,7 +117,7 @@ export default async function CountryPage({ params }: Props) {
 									</dd>
 								</div>
 							)}
-							{country.population && (
+							{country.population > 0 && (
 								<div>
 									<dt className="text-label mb-1">
 										Population
@@ -164,34 +164,36 @@ export default async function CountryPage({ params }: Props) {
 									</dd>
 								</div>
 							)}
-							{country.currencies && (
-								<div>
-									<dt className="text-label mb-1">
-										Currencies
-									</dt>
-									<dd className="text-foreground/80 font-light">
-										{(
-											Object.values(
-												country.currencies,
-											) as Array<{ name: string }>
-										)
-											.map((c) => c.name)
-											.join(", ")}
-									</dd>
-								</div>
-							)}
-							{country.languages && (
-								<div>
-									<dt className="text-label mb-1">
-										Languages
-									</dt>
-									<dd className="text-foreground/80 font-light">
-										{Object.values(country.languages).join(
-											", ",
-										)}
-									</dd>
-								</div>
-							)}
+							{country.currencies &&
+								Object.keys(country.currencies).length > 0 && (
+									<div>
+										<dt className="text-label mb-1">
+											Currencies
+										</dt>
+										<dd className="text-foreground/80 font-light">
+											{(
+												Object.values(
+													country.currencies,
+												) as Array<{ name: string }>
+											)
+												.map((c) => c.name)
+												.join(", ")}
+										</dd>
+									</div>
+								)}
+							{country.languages &&
+								Object.keys(country.languages).length > 0 && (
+									<div>
+										<dt className="text-label mb-1">
+											Languages
+										</dt>
+										<dd className="text-foreground/80 font-light">
+											{Object.values(
+												country.languages,
+											).join(", ")}
+										</dd>
+									</div>
+								)}
 						</dl>
 					</div>
 
