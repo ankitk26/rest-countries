@@ -36,10 +36,10 @@ export default async function HomePage() {
 	return (
 		<div className="mx-auto w-11/12 max-w-7xl py-8">
 			<header className="animate-fade-in mb-12 opacity-0">
-				<h2 className="text-display mb-3 font-display text-4xl md:text-5xl lg:text-6xl">
+				<h2 className="text-display font-display mb-3 text-4xl md:text-5xl lg:text-6xl">
 					Explore the World
 				</h2>
-				<p className="max-w-lg font-light text-muted">
+				<p className="text-muted max-w-lg font-light">
 					Discover countries, cultures, and continents. A curated
 					collection of nations from every corner of the globe.
 				</p>

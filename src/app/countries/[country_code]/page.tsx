@@ -54,7 +54,7 @@ export default async function CountryPage({ params }: Props) {
 	if (!country) {
 		return (
 			<div className="mx-auto w-11/12 max-w-7xl py-20 text-center">
-				<p className="font-light text-muted">Country not found</p>
+				<p className="text-muted font-light">Country not found</p>
 			</div>
 		);
 	}
@@ -86,7 +86,7 @@ export default async function CountryPage({ params }: Props) {
 
 			<div className="mt-12 grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
 				<div className="animate-slide-up opacity-0">
-					<div className="relative aspect-[4/3] overflow-hidden rounded-elegant border border-border/40 bg-secondary">
+					<div className="rounded-elegant border-border/40 bg-secondary relative aspect-[4/3] overflow-hidden border">
 						<Image
 							src={country.flags.svg}
 							alt={`Flag of ${country.name.common}`}
@@ -99,7 +99,7 @@ export default async function CountryPage({ params }: Props) {
 				</div>
 
 				<div className="animate-slide-up stagger-2 opacity-0">
-					<h1 className="text-display mb-8 font-display text-3xl md:text-4xl lg:text-5xl">
+					<h1 className="text-display font-display mb-8 text-3xl md:text-4xl lg:text-5xl">
 						{country.name.common}
 					</h1>
 
@@ -110,7 +110,7 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Official Name
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{country.name.official}
 									</dd>
 								</div>
@@ -120,14 +120,14 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Population
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{formatPopulation(country.population)}
 									</dd>
 								</div>
 							)}
 							<div>
 								<dt className="text-label mb-1">Region</dt>
-								<dd className="font-light text-foreground/80">
+								<dd className="text-foreground/80 font-light">
 									{country.region}
 								</dd>
 							</div>
@@ -136,7 +136,7 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Subregion
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{country.subregion}
 									</dd>
 								</div>
@@ -144,7 +144,7 @@ export default async function CountryPage({ params }: Props) {
 							{country.capital && (
 								<div>
 									<dt className="text-label mb-1">Capital</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{Array.isArray(country.capital)
 											? country.capital.join(", ")
 											: country.capital}
@@ -159,7 +159,7 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Top Level Domain
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{country.tld.join(", ")}
 									</dd>
 								</div>
@@ -169,7 +169,7 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Currencies
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{(
 											Object.values(
 												country.currencies,
@@ -185,7 +185,7 @@ export default async function CountryPage({ params }: Props) {
 									<dt className="text-label mb-1">
 										Languages
 									</dt>
-									<dd className="font-light text-foreground/80">
+									<dd className="text-foreground/80 font-light">
 										{Object.values(country.languages).join(
 											", ",
 										)}

@@ -28,8 +28,8 @@ export default function CountriesList({ countries }: Props) {
 	if (filteredCountries?.length === 0) {
 		return (
 			<div className="flex flex-col items-center justify-center py-20 text-center">
-				<p className="font-light text-muted">No countries found</p>
-				<p className="mt-2 text-sm text-muted/60">
+				<p className="text-muted font-light">No countries found</p>
+				<p className="text-muted/60 mt-2 text-sm">
 					Try adjusting your search or filter
 				</p>
 			</div>

@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Props) {
 			className={`${playfair.variable} ${outfit.variable} font-body`}
 			suppressHydrationWarning
 		>
-			<body className="min-h-screen bg-background text-foreground">
+			<body className="bg-background text-foreground min-h-screen">
 				<CountryProvider>
 					<Header />
 					<main className="pb-20">{children}</main>
