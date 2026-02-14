@@ -6,38 +6,71 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
-  params: {
+  params: Promise<{
     country_code: string;
-  };
+  }>;
 }
 
 async function getCountryByCode(countryCode: string) {
-  const country = (await fetch(
-    `https://restcountries.com/v3.1/alpha/${countryCode}`
-  ).then((res) => res.json())) as Country[];
-
-  return country[0];
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/alpha/${countryCode}`,
+      { next: { revalidate: 86400 } }
+    );
+    
+    if (!response.ok) {
+      return null;
+    }
+    
+    const data = await response.json();
+    return Array.isArray(data) ? data[0] : null;
+  } catch (error) {
+    console.error("Failed to fetch country:", error);
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const country = await getCountryByCode(params.country_code);
+  const { country_code } = await params;
+  const country = await getCountryByCode(country_code);
+
+  if (!country) {
+    return {
+      title: "Country Not Found",
+    };
+  }
 
   return {
-    title: `${country.flag} ${country.name.common} `,
+    title: `${country.flag || "🏳️"} ${country.name.common}`,
   };
 }
 
 export default async function CountryPage({ params }: Props) {
-  const country = await getCountryByCode(params.country_code);
+  const { country_code } = await params;
+  const country = await getCountryByCode(country_code);
 
   if (!country) {
     return <p>Country not found</p>;
   }
 
-  const borderCodes = country.borders ? country.borders.join(",") : "";
-  const borderCountries = (await fetch(
-    `https://restcountries.com/v3.1/alpha?codes=${borderCodes}`
-  ).then((res) => res.json())) as Country[];
+  let borderCountries: Country[] = [];
+  
+  if (country.borders && country.borders.length > 0) {
+    const borderCodes = country.borders.join(",");
+    try {
+      const response = await fetch(
+        `https://restcountries.com/v3.1/alpha?codes=${borderCodes}`,
+        { next: { revalidate: 86400 } }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        borderCountries = Array.isArray(data) ? data : [];
+      }
+    } catch (error) {
+      console.error("Failed to fetch border countries:", error);
+    }
+  }
 
   return (
     <div className="mt-8 w-11/12 mx-auto">
@@ -97,7 +130,7 @@ export default async function CountryPage({ params }: Props) {
                   <strong>Currencies: </strong>
                   <span>
                     {Object.values(country.currencies)
-                      .map((currency) => currency.name)
+                      .map((currency) => (currency as { name: string }).name)
                       .join(", ")}
                   </span>
                 </div>

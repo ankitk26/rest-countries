@@ -2,7 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["restcountries.eu", "flagcdn.com", "upload.wikimedia.org"],
+    remotePatterns: [
+      { protocol: "https", hostname: "restcountries.eu" },
+      { protocol: "https", hostname: "flagcdn.com" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
+    ],
   },
 };
 
