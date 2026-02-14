@@ -7,14 +7,18 @@ export default function SearchCountry() {
   const { search, setSearch } = useCountries();
 
   return (
-    <div className="bg-secondary px-4 py-2 rounded-lg flex gap-4 items-center border border-neutral-200">
-      <Search size={16} />
+    <div className="relative w-full max-w-md">
+      <Search
+        size={16}
+        strokeWidth={1.5}
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
+      />
       <input
-        className="bg-transparent border-none w-full focus:outline-none"
         type="text"
         value={search}
-        placeholder="Search for a country..."
+        placeholder="Search countries..."
         onChange={(e) => setSearch(e.target.value)}
+        className="input-elegant w-full pl-11 pr-4 rounded-elegant font-light placeholder:text-muted/60"
       />
     </div>
   );

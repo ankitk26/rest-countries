@@ -8,10 +8,10 @@ export default function BackButton() {
 
   return (
     <button
-      className="flex items-center rounded-md gap-3 border border-neutral-200 px-6 py-2 hover:opacity-80"
       onClick={() => router.back()}
+      className="btn-elegant rounded-elegant opacity-0 animate-fade-in"
     >
-      <ChevronLeft size={16} />
+      <ChevronLeft size={16} strokeWidth={1.5} />
       <span>Back</span>
     </button>
   );

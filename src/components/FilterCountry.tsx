@@ -10,22 +10,29 @@ import {
   SelectValue,
 } from "./ui/Select";
 
-const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
+const regions = [
+  { value: "All", label: "All Regions" },
+  { value: "Africa", label: "Africa" },
+  { value: "Americas", label: "Americas" },
+  { value: "Asia", label: "Asia" },
+  { value: "Europe", label: "Europe" },
+  { value: "Oceania", label: "Oceania" },
+];
 
 export default function FilterCountry() {
   const { region, setRegion } = useCountries();
 
   return (
-    <div className="mt-8 rounded-lg md:mt-0">
+    <div className="w-full max-w-[200px]">
       <Select value={region} onValueChange={(val) => setRegion(val)}>
         <SelectTrigger>
-          <SelectValue placeholder="Filter countries by region" />
+          <SelectValue placeholder="Filter by region" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {regions.map((region) => (
-              <SelectItem className="border-none" key={region} value={region}>
-                {region}
+            {regions.map((r) => (
+              <SelectItem key={r.value} value={r.value}>
+                {r.label}
               </SelectItem>
             ))}
           </SelectGroup>

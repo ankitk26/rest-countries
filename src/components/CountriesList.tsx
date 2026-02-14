@@ -27,18 +27,26 @@ export default function CountriesList({ countries }: Props) {
 
   if (filteredCountries?.length === 0) {
     return (
-      <p className="mt-8 text-center text-neutral-500">No countries found</p>
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <p className="text-muted font-light">No countries found</p>
+        <p className="text-muted/60 text-sm mt-2">
+          Try adjusting your search or filter
+        </p>
+      </div>
     );
   }
 
   return (
-    <>
-      <h3 className="mt-8">Total - {filteredCountries.length}</h3>
-      <div className="my-8 grid w-3/4 mx-auto gap-8 justify-center md:grid-cols-4 md:w-full md:max-w-full">
-        {filteredCountries?.map((country: any) => (
-          <CountryCard key={country.cca2} country={country} />
+    <div className="mt-12">
+      <div className="flex items-center gap-4 mb-8">
+        <span className="text-label">{filteredCountries.length} countries</span>
+        <div className="divider" />
+      </div>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filteredCountries?.map((country: Country, index: number) => (
+          <CountryCard key={country.cca2} country={country} index={index} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

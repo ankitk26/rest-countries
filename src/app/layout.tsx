@@ -1,11 +1,19 @@
 import Header from "@/components/Header";
 import CountryProvider from "@/provider/CountryProvider";
 import "@/styles/global.css";
-import { Nunito_Sans } from "next/font/google";
+import { Playfair_Display, Outfit } from "next/font/google";
 
-const font = Nunito_Sans({
-  weight: ["400", "500", "600", "700"],
+const playfair = Playfair_Display({
+  variable: "--font-display",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const outfit = Outfit({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
 });
 
 interface Props {
@@ -14,10 +22,15 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html className={font.className}>
-      <body>
-        <Header />
-        <CountryProvider>{children}</CountryProvider>
+    <html
+      className={`${playfair.variable} ${outfit.variable} font-body`}
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground min-h-screen">
+        <CountryProvider>
+          <Header />
+          <main className="pb-20">{children}</main>
+        </CountryProvider>
       </body>
     </html>
   );
