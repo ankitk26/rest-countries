@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { useDarkMode } from "@/hooks/use-dark-mode";
+import { useTheme } from "next-themes";
 
 interface ContextProps {
 	search: string;
@@ -21,14 +21,18 @@ interface ProviderProps {
 export default function CountryProvider({ children }: ProviderProps) {
 	const [search, setSearch] = useState("");
 	const [region, setRegion] = useState("All");
-	const [theme, toggleTheme] = useDarkMode();
+	const { theme, setTheme } = useTheme();
+
+	const toggleTheme = () => {
+		setTheme(theme === "dark" ? "light" : "dark");
+	};
 
 	return (
 		<CountryContext.Provider
 			value={{
 				search,
 				region,
-				theme,
+				theme: theme || "light",
 				toggleTheme,
 				setSearch,
 				setRegion,
