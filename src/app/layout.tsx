@@ -1,5 +1,4 @@
 import { Playfair_Display, Outfit } from "next/font/google";
-import Script from "next/script";
 import Header from "@/components/header";
 import "@/styles/global.css";
 import CountryProvider from "@/provider/country-provider";
@@ -17,6 +16,17 @@ const outfit = Outfit({
 	display: "swap",
 });
 
+const themeScript = `
+(function() {
+  try {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) {}
+})();
+`;
+
 interface Props {
 	children: React.ReactNode;
 }
@@ -29,10 +39,7 @@ export default function RootLayout({ children }: Props) {
 			data-scroll-behavior="smooth"
 		>
 			<head>
-				<Script
-					src="/theme-script.js"
-					strategy="beforeInteractive"
-				/>
+				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
 			</head>
 			<body className="bg-background text-foreground min-h-screen">
 				<CountryProvider>
