@@ -93,7 +93,7 @@ export default async function CountryPage({ params }: Props) {
 
 			<div className="mt-12 grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
 				<div className="animate-slide-up opacity-0">
-					<div className="rounded-elegant border-border/40 bg-secondary relative aspect-[4/3] overflow-hidden border">
+					<div className="rounded-elegant border-border/40 bg-secondary relative aspect-4/3 overflow-hidden border">
 						<Image
 							src={country.flags.svg}
 							alt={`Flag of ${country.name.common}`}
