@@ -1,4 +1,5 @@
 import { Playfair_Display, Outfit } from "next/font/google";
+import Script from "next/script";
 import Header from "@/components/header";
 import "@/styles/global.css";
 import CountryProvider from "@/provider/country-provider";
@@ -27,6 +28,12 @@ export default function RootLayout({ children }: Props) {
 			suppressHydrationWarning
 			data-scroll-behavior="smooth"
 		>
+			<head>
+				<Script
+					src="/theme-script.js"
+					strategy="beforeInteractive"
+				/>
+			</head>
 			<body className="bg-background text-foreground min-h-screen">
 				<CountryProvider>
 					<Header />
