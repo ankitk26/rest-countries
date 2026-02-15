@@ -16,17 +16,6 @@ const outfit = Outfit({
 	display: "swap",
 });
 
-const themeScript = `
-(function() {
-  try {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
-  } catch (e) {}
-})();
-`;
-
 interface Props {
 	children: React.ReactNode;
 }
@@ -39,7 +28,16 @@ export default function RootLayout({ children }: Props) {
 			data-scroll-behavior="smooth"
 		>
 			<head>
-				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
+				<script>
+					{`(function() {
+						try {
+							const theme = localStorage.getItem('theme');
+							if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+								document.documentElement.classList.add('dark');
+							}
+						} catch (e) {}
+					})();`}
+				</script>
 			</head>
 			<body className="bg-background text-foreground min-h-screen">
 				<CountryProvider>
