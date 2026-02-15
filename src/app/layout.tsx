@@ -25,6 +25,7 @@ export default function RootLayout({ children }: Props) {
 		<html
 			className={`${playfair.variable} ${outfit.variable} font-body`}
 			suppressHydrationWarning
+			data-scroll-behavior="smooth"
 		>
 			<body className="bg-background text-foreground min-h-screen">
 				<CountryProvider>

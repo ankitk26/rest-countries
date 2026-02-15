@@ -1,11 +1,10 @@
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import BackButton from "@/components/back-button";
 import { Country } from "@/types";
 import { formatPopulation } from "@/utils/format-population";
-
-export const runtime = "edge";
 
 interface Props {
 	params: Promise<{
@@ -13,13 +12,10 @@ interface Props {
 	}>;
 }
 
-async function getCountryByCode(countryCode: string) {
-	try {
+const getCountryByCode = unstable_cache(
+	async (countryCode: string) => {
 		const response = await fetch(
 			`https://restcountries.com/v3.1/alpha/${countryCode}`,
-			{
-				next: { revalidate: 86400 },
-			},
 		);
 
 		if (!response.ok) {
@@ -28,11 +24,30 @@ async function getCountryByCode(countryCode: string) {
 
 		const data = await response.json();
 		return Array.isArray(data) ? data[0] : null;
-	} catch (error) {
-		console.error("Failed to fetch country:", error);
-		return null;
-	}
-}
+	},
+	["country"],
+	{ revalidate: 86400 },
+);
+
+const getBorderCountries = unstable_cache(
+	async (borderCodes: string) => {
+		const response = await fetch(
+			`https://restcountries.com/v3.1/alpha?codes=${borderCodes}`,
+		);
+
+		if (!response.ok) {
+			return [];
+		}
+
+		const data = await response.json();
+		return (Array.isArray(data) ? data : []).sort(
+			(a: Country, b: Country) =>
+				a.name.common.localeCompare(b.name.common),
+		);
+	},
+	["border-countries"],
+	{ revalidate: 86400 },
+);
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { country_code } = await params;
@@ -66,21 +81,9 @@ export default async function CountryPage({ params }: Props) {
 	if (country.borders && country.borders.length > 0) {
 		const borderCodes = country.borders.join(",");
 		try {
-			const response = await fetch(
-				`https://restcountries.com/v3.1/alpha?codes=${borderCodes}`,
-				{
-					next: { revalidate: 86400 },
-				},
-			);
-
-			if (response.ok) {
-				const data = await response.json();
-				borderCountries = (Array.isArray(data) ? data : []).sort(
-					(a, b) => a.name.common.localeCompare(b.name.common),
-				);
-			}
-		} catch (error) {
-			console.error("Failed to fetch border countries:", error);
+			borderCountries = await getBorderCountries(borderCodes);
+		} catch {
+			// Silently handle error
 		}
 	}
 

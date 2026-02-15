@@ -1,3 +1,3 @@
 export const formatPopulation = (population: number) => {
-	return population.toLocaleString();
+	return population.toLocaleString("en-US");
 };

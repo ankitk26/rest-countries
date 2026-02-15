@@ -22,6 +22,8 @@ export default function CountryCard({ country, index = 0 }: Props) {
 						fill
 						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
 						className="object-cover transition-transform duration-700 group-hover:scale-105"
+						loading={index < 4 ? "eager" : "lazy"}
+						priority={index < 4}
 					/>
 					<div className="from-foreground/10 absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 				</div>
