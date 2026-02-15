@@ -5,6 +5,8 @@ import BackButton from "@/components/back-button";
 import { Country } from "@/types";
 import { formatPopulation } from "@/utils/format-population";
 
+export const runtime = "edge";
+
 interface Props {
 	params: Promise<{
 		country_code: string;
