@@ -49,6 +49,16 @@ const getBorderCountries = unstable_cache(
 	{ revalidate: 86400 },
 );
 
+export async function generateStaticParams() {
+	const response = await fetch(
+		"https://restcountries.com/v3.1/all?fields=cca2",
+	);
+	const countries = await response.json();
+	return countries.map((country: { cca2: string }) => ({
+		country_code: country.cca2,
+	}));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { country_code } = await params;
 	const country = await getCountryByCode(country_code);
