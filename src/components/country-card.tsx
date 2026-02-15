@@ -10,30 +10,29 @@ interface Props {
 
 export default function CountryCard({ country, index = 0 }: Props) {
 	return (
-		<Link href={`/countries/${country.cca2}`} className="group block">
+		<Link href={`/countries/${country.cca2}`} className="group block h-full">
 			<article
-				className="card-elegant animate-slide-up rounded-elegant overflow-hidden opacity-0"
+				className="card-elegant animate-slide-up rounded-elegant flex h-full flex-col overflow-hidden opacity-0"
 				style={{ animationDelay: `${Math.min(index * 0.05, 0.5)}s` }}
 			>
-				<div className="bg-secondary relative aspect-[4/3] overflow-hidden">
+				<div className="bg-secondary relative aspect-[3/2] overflow-hidden">
 					<Image
 						src={country.flags.svg}
 						alt={`Flag of ${country.name.common}`}
 						fill
 						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-						className="object-cover transition-transform duration-700 group-hover:scale-105"
+						className="object-contain p-3 transition-transform duration-200 ease-out group-hover:scale-[1.03]"
 						loading={index < 4 ? "eager" : "lazy"}
 						priority={index < 4}
 					/>
-					<div className="from-foreground/10 absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 				</div>
 
-				<div className="p-5">
-					<h2 className="font-display mb-4 text-lg tracking-tight transition-opacity duration-300 group-hover:opacity-70 md:text-xl">
+				<div className="flex flex-1 flex-col p-5">
+					<h2 className="font-display mb-4 text-lg tracking-tight transition-colors duration-200 ease-out group-hover:text-muted md:text-xl">
 						{country.name.common}
 					</h2>
 
-					<dl className="space-y-2 text-sm">
+					<dl className="mt-auto space-y-2 text-sm">
 						{country.population > 0 && (
 							<div className="flex gap-2">
 								<dt className="text-label w-24">Population</dt>

@@ -24,7 +24,7 @@ export default function FilterCountry() {
 
 	return (
 		<div className="w-full max-w-[200px]">
-			<Select value={region} onValueChange={(val) => setRegion(val)}>
+			<Select value={region} onValueChange={(val) => setRegion(val || "All")}>
 				<SelectTrigger>
 					<SelectValue placeholder="Filter by region" />
 				</SelectTrigger>
